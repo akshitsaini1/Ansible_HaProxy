@@ -1,0 +1,33 @@
+---
+# tasks file for haproxy
+- name: package
+  package:
+          name: "haproxy"
+          state: present
+
+
+- name: registering new webs
+  blockinfile:
+                  dest: "/etc/haproxy/haproxy.cfg"
+                  insertafter: "roundrobin"
+                  block: |
+                          {% for i in groups['webs'] %}
+                             server  app1 {{i}}:80 check
+                          {% endfor %}
+                  state: present
+  notify:
+          - restart
+- name: changing to 8081 port
+  lineinfile:
+          dest: "/etc/haproxy/haproxy.cfg"
+          regexp: '\s*bind \*:'
+          line: "  bind *:8081"
+          state: present
+
+  notify:
+          - restart
+
+- name: starting service
+  service:
+          name: haproxy
+          state: started

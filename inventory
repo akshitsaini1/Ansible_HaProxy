@@ -1,0 +1,5 @@
+[webs]
+<IP> ansible_ssh_user= ansible_ssh_password=
+<IP> ansible_ssh_user= ansible_ssh_password=
+[lb]
+<IP> ansible_ssh_user= ansible_ssh_password=

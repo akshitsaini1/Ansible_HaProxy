@@ -1,0 +1,7 @@
+- hosts: webs
+  roles:
+          - webserver
+
+- hosts: lb
+  roles:
+          - role: haproxy
